@@ -7,17 +7,8 @@ import { Login } from './Pages/Login';
 import RequireAuth from './Hooks/RequireAuth';
 import Test from './Pages/Test';
 import Home from './Pages/Home';
-import ProductLayout from './Pages/Products/ProductLayout';
-import OccasionLayout from './Pages/Occasions/OccasionsLayout';
-import OffersLayout from './Pages/Offers/OffersLayout';
-import CategoryLayout from './Pages/Categories/CategoryLayout';
 import Settings from './Pages/Settings';
-import CategoryListing from './Pages/Categories/CategoryListing';
-import OccasionListing from './Pages/Occasions/OccasionListing';
-import ClassLayout from './Pages/Class/ClassLayout';
-import ClassListing from './Pages/Class/ClassListing';
-import CreateOffer from './Pages/Offers/CreateOffer';
-import UpdateOffer from './Pages/Offers/UpdateOffer';
+
 function App() {
   return (
     <div className="App">
@@ -34,7 +25,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="settings" element={<Settings />} />
             
-            <Route path='Offer' element={<OffersLayout />} >
+            {/* <Route path='Offer' element={<OffersLayout />} >
                 <Route path='all' element={<p>Offer Listing</p>}/>
                 <Route path='create' element={<CreateOffer />}/>
                 <Route path='update/:id' element={<UpdateOffer/>}/>
@@ -67,7 +58,7 @@ function App() {
                 <Route path='create' element={<p>Create Occasions</p>}/>
                 <Route path='update' element={<p>Update Occasions</p>}/>
                 <Route path='delete' element={<p>Delete Occasions</p>}/>
-            </Route>
+            </Route> */}
             
           </Route>
         </Route>

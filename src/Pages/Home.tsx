@@ -1,11 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useAuth } from '../Context/AuthContext'
 const Home = () => {
+  const {User} = useAuth();
   return (
     <HomeContainer>
       <div className='Home__Content'>
-        <h1>Mangaldeep Jewellers</h1>
-        <h3>Have a Class</h3>
+        <h1>{User.userData.shopname}</h1>
+        <h3>{User.userData.tagline || "Lets Begin"}</h3>
       </div>
     </HomeContainer>
   )

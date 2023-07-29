@@ -15,12 +15,12 @@ export const Login = () => {
     const from = location.state?.from?.pathname || '/';
     const { User, setUser } = useAuth();
     const [form] = Form.useForm();
-    const [formData, setformData] = useState({ phonenumber: "", password: "" });
+    const [formData, setformData] = useState({ mobile: "", password: "" });
 
     const HandleSubmit = async () => { 
         console.log(formData);
         try {
-            const response = await axios.post(config.URLS.BACKEND_URL + 'users/signin', formData);
+            const response = await axios.post(config.URLS.BACKEND_URL + 'account/signin', formData);
             console.log(response.data);
             setUser({ ...User, token: response.data.data.token, userData: response.data.data.userinfo });
             localStorage.setItem('token', response.data.data.token);
@@ -46,10 +46,10 @@ export const Login = () => {
                 >
                     <Form.Item
                         label="Phone Numnber"
-                        name="phonenumber"
-                        rules={[{ required: true, message: 'Please input your phonenumber!', len: 10 }]}
+                        name="mobile"
+                        rules={[{ required: true, message: 'Please input your phonenumber!', len: 13 }]}
                     >
-                        <Input placeholder='Enter Phonenumber ...' onChange={(e) => { setformData({ ...formData, phonenumber: e.target.value }) }} />
+                        <Input placeholder='Enter Phonenumber ...' onChange={(e) => { setformData({ ...formData, mobile: e.target.value }) }} />
                     </Form.Item>
                     <Form.Item
                         label="Password"

@@ -9,9 +9,11 @@ type AuthProps = {
     token: string,
     userData: {
         id: string,
-        name: string,
-        phonenumber: string,
+        username: string,
+        mobile: string,
+        shopname:string
         photo?: string
+        tagline?:string
     }
 }
 

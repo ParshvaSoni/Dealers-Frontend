@@ -6,7 +6,7 @@ const prod={
 
 const dev={
     URLS:{
-        BACKEND_URL:"http://localhost:3000/"
+        BACKEND_URL:"http://localhost:3500/"
     }
 }
 

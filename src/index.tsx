@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 
 import ThemeContext from './Context/ThemeContext';
 import AuthContext from './Context/AuthContext';
-import { store } from './store';
 
 import App from './App';
 import SomeWentWrong from './Pages/SomeWentWrong';
@@ -17,7 +16,6 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
       <AuthContext>
         <ThemeContext>
           <BrowserRouter>
@@ -27,7 +25,6 @@ root.render(
           </BrowserRouter>
         </ThemeContext>
       </AuthContext>
-    </Provider>
   </React.StrictMode>
 );
 

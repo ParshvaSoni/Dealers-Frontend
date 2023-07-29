@@ -26,7 +26,7 @@ const Header = () => {
       // console.log(respone.data)
       localStorage.setItem('token','');
       localStorage.setItem('userinfo','');
-      setUser({ token: '', userData: { name: '', phonenumber: '', id: '' } })
+      setUser({ token: '', userData: { username: '', mobile: '', id: '',shopname: '',tagline:'' } })
       
     }
     catch (err) {
@@ -41,9 +41,9 @@ const Header = () => {
 
   return (
     <HeaderContainer >
-        <div className='Logo Container__Item'  onClick={()=>navigate('/')}>MangalDeep</div>
+        <div className='Logo Container__Item'  onClick={()=>navigate('/')}>{User.userData.shopname}</div>
         <div className='User__Info'>
-        <span>Welcome {Capitalize(User.userData.name) || 'User'}</span>
+        <span>Welcome {Capitalize(User.userData.username) || 'User'}</span>
       </div>
         <div className='Link__Container' style={{display:`${MenuVisible?'flex':'none'}`}}>
           <Switch onChange={onThemeChange} checked={currentTheme==='light'?true:false} checkedChildren="Light" unCheckedChildren="Dark" defaultChecked />
