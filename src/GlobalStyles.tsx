@@ -21,7 +21,7 @@ const BodyGlobalStyle = css`
             background-color:transparent !important;
             color:${(prop) => prop.theme.font.fontColor} !important;
         }
-        .ant-input-password, .ant-input-password-icon, .ant-input-affix-wrapper, .ant-picker{
+        .ant-input-password, .ant-input-password-icon, .ant-input-affix-wrapper, .ant-picker, .ant-steps-item-icon, .ant-input-number, .ant-input-number-handler-wrap{
             background-color:transparent !important;
             color:${(prop) => prop.theme.font.fontColor} !important;
         }
@@ -50,11 +50,11 @@ const BodyGlobalStyle = css`
             }
         }
         
-        .ant-table-cell-fix-left, .ant-table-cell-fix-right{
+        .ant-table-cell-fix-left, .ant-table-cell-fix-right, .ant-select-dropdown{
             background-color:${(prop) => prop.theme.color.color1};
         }
 
-        .ant-collapse-header,  .ant-notification-notice, .ant-slider-track, .ant-btn-primary{
+        .ant-collapse-header,  .ant-notification-notice, .ant-slider-track, .ant-btn-primary, .ant-select-item-option-active{
             background-color:${(prop) => prop.theme.color.color3} !important;
         } 
 

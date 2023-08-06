@@ -6,6 +6,4 @@
 2nd Priority :
 
 3rd Priority :
-
-
-    
+    => Added message popup if speech rechognition is not supported for client browser, exaple mozilla does not support speechRechognition so client using mozilla should get pop-up message that you can't use speech rechognition

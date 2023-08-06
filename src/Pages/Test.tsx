@@ -3,11 +3,15 @@ import { Input, Select, Button, Switch, Progress, Space,Checkbox, Slider } from 
 import styled from 'styled-components'
 import { useCurrentTheme } from '../Context/ThemeContext'
 import { OpenNotification } from '../HelperFunction'
+import SpeechToTextInput from '../Components/SpeechToTextInput'
+import BakiBillForm from './BakiBill/CreateBakiBill'
 const Test = () => {
 
     return ( 
         <DivContainer>
-            <Space direction='vertical'>
+            {/* <Space direction='vertical'> */}
+                <BakiBillForm />
+                <SpeechToTextInput />
                 <div style={{display:'flex'}}>
                     <span className='Wbox1' style={{padding:"20px"}}>Box 1</span>
                     <span className='Wbox2' style={{padding:"20px"}}>Box 2</span>
@@ -41,7 +45,7 @@ const Test = () => {
                 <Progress percent={50} showInfo={false} />
                 <Checkbox >Checkbox</Checkbox>
                 <Slider defaultValue={30}/>
-            </Space>
+            {/* </Space> */}
         </DivContainer>
     )
 }
@@ -49,6 +53,8 @@ const Test = () => {
 export default Test;
 
 const DivContainer=styled.div`
+    width:100%;
+    border:1px solid yellow;
     .Wbox1{
         background-color:${(prop)=>{return prop.theme.color.color1}};
     }

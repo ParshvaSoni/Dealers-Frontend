@@ -8,6 +8,8 @@ import RequireAuth from './Hooks/RequireAuth';
 import Test from './Pages/Test';
 import Home from './Pages/Home';
 import Settings from './Pages/Settings';
+import BakiBillLayout from './Pages/BakiBill/BakiBillLayout';
+import BakiBillForm from './Pages/BakiBill/CreateBakiBill';
 
 function App() {
   return (
@@ -21,10 +23,10 @@ function App() {
         {/* Protected Routes */}
         <Route element={<RequireAuth />}>
           <Route path='/' element={<Layout />} >
-            
+
             <Route index element={<Home />} />
             <Route path="settings" element={<Settings />} />
-            
+
             {/* <Route path='Offer' element={<OffersLayout />} >
                 <Route path='all' element={<p>Offer Listing</p>}/>
                 <Route path='create' element={<CreateOffer />}/>
@@ -58,8 +60,15 @@ function App() {
                 <Route path='create' element={<p>Create Occasions</p>}/>
                 <Route path='update' element={<p>Update Occasions</p>}/>
                 <Route path='delete' element={<p>Delete Occasions</p>}/>
-            </Route> */}
+            </Route> 
             
+            */}
+            <Route path='BakiBill' element={<BakiBillLayout />} >
+              {/* <Route path='all' element={< />}/> */}
+              <Route path='create' element={<BakiBillForm />} />
+              <Route path='update' element={<p>Update Occasions</p>} />
+              <Route path='delete' element={<p>Delete Occasions</p>} />
+            </Route>
           </Route>
         </Route>
 

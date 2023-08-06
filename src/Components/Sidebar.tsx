@@ -42,7 +42,8 @@ const menu = [
             { name: 'All Class', path: 'class/all' },
         ]
     },
-    { title: 'RolesPermission', submenu: [{ name: 'My Roles and Permissions', path: '/myroles' }] }
+    { title: 'RolesPermission', submenu: [{ name: 'My Roles and Permissions', path: '/myroles' }] },
+    { title: 'Baki Bill', submenu: [{ name: 'Create Baki Bill', path: 'bakibill/create' }] }
 
 ]
 
