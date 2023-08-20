@@ -3,6 +3,7 @@ import { Button, Input, Steps, Form, Select, InputNumber, DatePicker } from 'ant
 import styled from 'styled-components';
 import { FaMicrophone } from 'react-icons/fa';
 import FileUpload from '../../Components/FileUpload';
+import PrintComponent from '../../Components/PrintComponent';
 
 interface obj {
     [key: string]: string | number | null | any
@@ -22,7 +23,7 @@ const initalData: obj = {
     deliverdate: "",
     imageurl: "",
     huid: "",
-    transaction: ""
+    transaction: []
 }
 
 declare global {
@@ -50,7 +51,6 @@ const BakiBillForm = () => {
     let fieldname = "";
     const [billData, setBillData] = useState(initalData);
     const [isListening, setIsListening] = useState(false);
-    const [inputText, setInputText] = useState('');
 
     let finalAmount = calc(billData['metalweight'], billData['rate'], billData['labour'], billData['extra']);
 
@@ -60,7 +60,6 @@ const BakiBillForm = () => {
         // recognition.lang = ['en-US','gu-IN']; // Set language to English
         recognition.onresult = (event: { results: { transcript: any; }[][]; }) => {
             const transcript = event.results[0][0].transcript;
-            setInputText(transcript);
             let temp: obj = {}
             temp[fieldname] = transcript;
             setBillData({ ...billData, ...temp });
@@ -268,7 +267,7 @@ const BakiBillForm = () => {
             </div>);
             break;
         case 6:
-            fieldname = "Extrainfo";
+            fieldname = "Payment Info";
             content = (<div className='content'>
                 <div className="hflex">
                     <Form.Item
@@ -293,7 +292,7 @@ const BakiBillForm = () => {
                     <Form.Item
                         label="Advance Payment"
                     >
-                        <InputNumber defaultValue={0} status={(finalAmount - billData['transaction'][0].amount) < 0 ? 'error' : ''} addonAfter="₹" onChange={(value) => {
+                        <InputNumber defaultValue={0} addonAfter="₹" onChange={(value) => {
                             let tempAmount = [];
                             tempAmount.push({ transactiondate: new Date().toISOString(), amount: value });
                             console.log(tempAmount);
@@ -303,23 +302,36 @@ const BakiBillForm = () => {
                     <Form.Item
                         label="Remaining Amount"
                     >
-                        <InputNumber status="error" addonAfter="₹" disabled value={finalAmount - billData['transaction'][0].amount} />
-                    </Form.Item>
-                </div>
-                <div className='hflex'>
-                    <Form.Item
-                        label="Image Upload"
-                    >
-                        <FileUpload />
+                        <InputNumber status="error" addonAfter="₹" disabled value={finalAmount - (billData['transaction'][0]?.amount) || 0} />
                     </Form.Item>
                 </div>
             </div>)
+            break;
+        case 7:
+            fieldname = "message"
+            content = (
+                <div className="content">
+                    <Form.Item
+                        label="Final Message"
+                    >
+                        <Input value={billData['message']} suffix={<FaMicrophone onClick={startListening} />} onChange={(e) => { setBillData({ ...billData, message: e.target.value }) }} />
+                    </Form.Item>
+                    <PrintComponent>
+                        <div>
+                            <Button type={'primary'}>Testing</Button>
+                            <h1 style={{ color: "red" }}>Test 1</h1>
+                            <h1 style={{ color: "blue" }}>Test 1</h1>
+                            <img src="https://www.section.io/engineering-education/authors/sarthak-duggal/avatar_hue80417caa19405e90def6356d60f65e7_30777_180x0_resize_q75_box.jpg" alt="Image to Print" width={"200px"} height={"300px"} loading={'lazy'} />
+                        </div>
+                    </PrintComponent>
+                </div>
+            );
     }
 
     return (
         <BakiBillFormContainer>
             <div className="stepsclass hflex">
-                <Steps size='small' onChange={(step) => { setCurrent(step); setInputText(""); }} responsive={true} direction='horizontal' labelPlacement='vertical' current={current} >
+                <Steps size='small' onChange={(step) => { setCurrent(step) }} responsive={true} direction='horizontal' labelPlacement='vertical' current={current} >
                     <Steps.Step key={1} title="Customer Name" status={billData['customername'] !== "" ? 'finish' : 'process'} />
                     <Steps.Step key={2} title="Customer Mobile" status={billData['customermobile'] !== "" ? 'finish' : 'process'} />
                     <Steps.Step key={3} title="Product Name" status={billData['productname'] !== "" ? 'finish' : 'process'} />
@@ -327,13 +339,14 @@ const BakiBillForm = () => {
                     <Steps.Step key={5} title="Product Weight" status={billData['metalweight'] > 0 ? 'finish' : 'process'} />
                     <Steps.Step key={6} title="Rate & Charges" status={(billData['rate'] > 0 && billData['extra'] >= 0 && billData['labour'] > 0) ? 'finish' : 'process'} />
                     <Steps.Step key={7} title="Extra Info" />
+                    <Steps.Step key={8} title="Optional Info" />
                 </Steps>
             </div>
             <div className="contentContainer hflex">
                 {content}
-                {current < 6 ? (<Button type={'primary'} onClick={() => { setCurrent(current + 1); setInputText("") }}>Next</Button>) : (<Button type={'primary'}>Submit</Button>)}
+                {current < 6 ? (<Button type={'primary'} onClick={() => { setCurrent(current + 1)}}>Next</Button>) : (<Button type={'primary'}>Submit</Button>)}
             </div>
-            {JSON.stringify(billData)}
+            {/* {JSON.stringify(billData)} */}
         </BakiBillFormContainer>
     );
 }

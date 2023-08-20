@@ -17,7 +17,7 @@ export const Login = () => {
     const [form] = Form.useForm();
     const [formData, setformData] = useState({ mobile: "", password: "" });
 
-    const HandleSubmit = async () => { 
+    const HandleSubmit = async () => {
         console.log(formData);
         try {
             const response = await axios.post(config.URLS.BACKEND_URL + 'account/signin', formData);
@@ -47,7 +47,7 @@ export const Login = () => {
                     <Form.Item
                         label="Phone Numnber"
                         name="mobile"
-                        rules={[{ required: true, message: 'Please input your phonenumber!', len: 13 }]}
+                        rules={[{ required: true, message: 'Please input your phonenumber!', len: 10 }]}
                     >
                         <Input placeholder='Enter Phonenumber ...' onChange={(e) => { setformData({ ...formData, mobile: e.target.value }) }} />
                     </Form.Item>

@@ -4,14 +4,37 @@ import styled from 'styled-components'
 import { useCurrentTheme } from '../Context/ThemeContext'
 import { OpenNotification } from '../HelperFunction'
 import SpeechToTextInput from '../Components/SpeechToTextInput'
-import BakiBillForm from './BakiBill/CreateBakiBill'
+// import  PrintBillLayout  from '../Components/PrintBillLayout'
+import PrintBillLayout from '../Components/PrintBillLayout'
+
+let Data = {
+    _id:"12345679123",
+    customername: "Yogesh Bhai",
+    customermobile: "9779647141",
+    productname: "Gold Ring",
+    metaltype: "gold",
+    metalpurity: "24KT",
+    metalweight: 5,
+    rate: 1000,
+    labour: 100,
+    extra: 500,
+    message: "Tesing che guys",
+    deliverdate: "2023-08-23T21:47:07.036Z",
+    imageurl: "https://stock.adobe.com/in/images/website-header-or-banner-design-with-hexagons-pattern-geometric-abstract-background-with-simple-hexagonal-elements-medical-technology-or-science-design/276080724",
+    huid: "123456",
+    transaction: [{
+        transactiondate:"2023-08-19T21:47:07.036Z",
+        amount:100
+    }]
+}
+
 const Test = () => {
 
     return ( 
         <DivContainer>
             {/* <Space direction='vertical'> */}
-                <BakiBillForm />
-                <SpeechToTextInput />
+                <PrintBillLayout data={Data} />
+                {/* <SpeechToTextInput />
                 <div style={{display:'flex'}}>
                     <span className='Wbox1' style={{padding:"20px"}}>Box 1</span>
                     <span className='Wbox2' style={{padding:"20px"}}>Box 2</span>
@@ -44,7 +67,7 @@ const Test = () => {
                 <Progress percent={100} />
                 <Progress percent={50} showInfo={false} />
                 <Checkbox >Checkbox</Checkbox>
-                <Slider defaultValue={30}/>
+                <Slider defaultValue={30}/> */}
             {/* </Space> */}
         </DivContainer>
     )
