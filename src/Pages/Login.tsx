@@ -6,6 +6,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 import { useAuth } from '../Context/AuthContext';
 import { config } from '../Constant'
+import { useDealersData } from '../Context/DealersContext';
 
 
 
@@ -14,16 +15,19 @@ export const Login = () => {
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
     const { User, setUser } = useAuth();
+    const {dealer,setDealer} = useDealersData();
     const [form] = Form.useForm();
     const [formData, setformData] = useState({ mobile: "", password: "" });
 
     const HandleSubmit = async () => {
         console.log(formData);
         try {
-            const response = await axios.post(config.URLS.BACKEND_URL + 'account/signin', formData);
+            const response = await axios.post(config.URLS.BACKEND_URL + 'account/signin', formData, { withCredentials: true });
             console.log(response.data);
-            setUser({ ...User, token: response.data.data.token, userData: response.data.data.userinfo });
-            localStorage.setItem('token', response.data.data.token);
+            setUser({ ...User, userData: response.data.data.userinfo });
+            const response2 = await axios.get(config.URLS.BACKEND_URL + 'accountmetadata/me',{withCredentials:true});
+            setDealer({...dealer,DealersData:response2.data?.data});
+            localStorage.setItem('dealersinfo',JSON.stringify(response2.data.data))
             localStorage.setItem('userinfo', JSON.stringify(response.data.data.userinfo));
             navigate(from, { replace: true });
         }

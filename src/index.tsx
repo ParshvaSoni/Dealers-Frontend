@@ -9,6 +9,7 @@ import AuthContext from './Context/AuthContext';
 
 import App from './App';
 import SomeWentWrong from './Pages/SomeWentWrong';
+import DealersContext from './Context/DealersContext';
 
 
 const root = ReactDOM.createRoot(
@@ -16,15 +17,17 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-      <AuthContext>
-        <ThemeContext>
+    <AuthContext>
+      <ThemeContext>
+        <DealersContext>
           <BrowserRouter>
             <Routes>
               <Route path='/*' element={<App />} errorElement={<SomeWentWrong />} />
             </Routes>
           </BrowserRouter>
-        </ThemeContext>
-      </AuthContext>
+        </DealersContext>
+      </ThemeContext>
+    </AuthContext>
   </React.StrictMode>
 );
 

@@ -6,14 +6,10 @@ type Props = {
 };
 
 type AuthProps = {
-    token: string,
     userData: {
         id: string,
         username: string,
         mobile: string,
-        shopname:string
-        photo?: string
-        tagline?:string
     }
 }
 
@@ -29,7 +25,7 @@ export function useAuth() {
 }
 
 const AuthContext = ({ children }: Props) => {
-    const [User, setUser] = useState({ token: localStorage.getItem('token') || '', userData: JSON.parse(localStorage.getItem('userinfo') || '{}')|| {} } as AuthProps)
+    const [User, setUser] = useState({ userData: JSON.parse(localStorage.getItem('userinfo') || '{}')|| {} } as AuthProps)
     console.log(User);
     return (
         <AuthorizationContext.Provider value={{ User, setUser }}>
