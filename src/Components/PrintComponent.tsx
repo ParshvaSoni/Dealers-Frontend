@@ -32,7 +32,6 @@ const PrintComponent: React.FC<PrintComponentProps> = ({children}) => {
         <div>
             {/* Your content to be printed */}
             <div id="contentToPrint">
-                <p>This is the content you want to print.</p>
                 <div>
                     {
                         children

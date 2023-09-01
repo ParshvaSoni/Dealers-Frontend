@@ -6,6 +6,8 @@ import { OpenNotification } from '../HelperFunction'
 import SpeechToTextInput from '../Components/SpeechToTextInput'
 // import  PrintBillLayout  from '../Components/PrintBillLayout'
 import PrintBillLayout from '../Components/PrintBillLayout'
+import CameraCapture from '../Components/CameraCapture'
+import CreateBakiBill from '../Pages/BakiBill/CreateBakiBill'
 
 let Data = {
     _id:"12345679123",
@@ -33,7 +35,9 @@ const Test = () => {
     return ( 
         <DivContainer>
             {/* <Space direction='vertical'> */}
-                <PrintBillLayout data={Data} />
+                {/* <PrintBillLayout data={Data} /> */}
+                {/* <CameraCapture /> */}
+                <CreateBakiBill />
                 {/* <SpeechToTextInput />
                 <div style={{display:'flex'}}>
                     <span className='Wbox1' style={{padding:"20px"}}>Box 1</span>

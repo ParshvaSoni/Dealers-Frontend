@@ -4,11 +4,37 @@ import styled from 'styled-components';
 import { FaMicrophone } from 'react-icons/fa';
 import FileUpload from '../../Components/FileUpload';
 import PrintComponent from '../../Components/PrintComponent';
+import CameraCapture from '../../Components/CameraCapture';
+import axios from 'axios';
+import { config } from '../../Constant';
+import { OpenNotification } from '../../HelperFunction';
+import PrintBillLayout from '../../Components/PrintBillLayout';
 
 interface obj {
     [key: string]: string | number | null | any
 }
 
+interface printDataInterface {
+    _id: string,
+    customername: string,
+    customermobile: string,
+    productname: string,
+    metaltype: string,
+    metalpurity: string,
+    metalweight: number,
+    rate: number,
+    labour: number,
+    extra: number,
+    message: string,
+    deliverdate: string,
+    imageurl: string,
+    huid: string,
+    transaction: {
+        amount: number,
+        transactiondate: string,
+        _id: string
+    }[]
+}
 const initalData: obj = {
     customername: "",
     customermobile: "",
@@ -21,8 +47,8 @@ const initalData: obj = {
     extra: 0,
     message: "",
     deliverdate: "",
-    imageurl: "",
-    huid: "",
+    // imageurl: "",
+    // huid: "",
     transaction: []
 }
 
@@ -45,6 +71,30 @@ function calc(gram: number, rate: number, labour: number, extra: number) {
     return round(amount + amount * 0.03);
 }
 
+let printData: printDataInterface = {
+    _id: '',
+    customername: '',
+    customermobile: '',
+    productname: '',
+    metaltype: '',
+    metalpurity: '',
+    metalweight: 0,
+    rate: 0,
+    labour: 0,
+    extra: 0,
+    message: '',
+    deliverdate: '',
+    imageurl: '',
+    huid: '',
+    transaction: [
+        {
+            amount: 0,
+            transactiondate: '',
+            _id: ''
+        }
+    ]
+};
+
 const BakiBillForm = () => {
     const [current, setCurrent] = useState(0);
     // const [fieldname, setFieldname] = useState("");
@@ -53,6 +103,39 @@ const BakiBillForm = () => {
     const [isListening, setIsListening] = useState(false);
 
     let finalAmount = calc(billData['metalweight'], billData['rate'], billData['labour'], billData['extra']);
+
+    const handleSubmit = async () => {
+        try {
+            let finalData = {
+                customername: billData.customername,
+                customermobile: billData.customermobile,
+                productname: billData.productname,
+                metaltype: billData.metaltype,
+                metalweight: billData.metalweight,
+                metalpurity: billData.metalpurity,
+                rate: billData.rate,
+                labour: billData.labour,
+                extra: billData.extra,
+                message: billData.message,
+                deliverdate: billData.deliverdate,
+                transaction: billData.transaction
+            }
+            let response = await axios.post(config.URLS.BACKEND_URL + 'bakibill/create', finalData, { withCredentials: true });
+            console.log(response.data);
+            if (response?.data?.success) {
+                printData = response.data.data;
+                setCurrent(current + 1);
+            }
+            else
+            {
+                OpenNotification({ type: 'error', title: 'Error While Creating Baki Bill', description: response.data.message, })
+            }
+        }
+        catch (err) {
+            console.log(err);
+            OpenNotification({ type: 'error', title: 'Error While Creating Baki Bill', description: "check the console", })
+        }
+    }
 
     const startListening = () => {
         setIsListening(true);
@@ -311,18 +394,23 @@ const BakiBillForm = () => {
             fieldname = "message"
             content = (
                 <div className="content">
-                    <Form.Item
-                        label="Final Message"
-                    >
-                        <Input value={billData['message']} suffix={<FaMicrophone onClick={startListening} />} onChange={(e) => { setBillData({ ...billData, message: e.target.value }) }} />
-                    </Form.Item>
+                    <div className='vflex'>
+                        <Form.Item
+                            label="Final Message"
+                        >
+                            <Input value={billData['message']} suffix={<FaMicrophone onClick={startListening} />} onChange={(e) => { setBillData({ ...billData, message: e.target.value }) }} />
+                        </Form.Item>
+                        <CameraCapture />
+                    </div>
+                </div>
+            );
+            break;
+        case 8:
+            fieldname = "print"
+            content = (
+                <div className='content'>
                     <PrintComponent>
-                        <div>
-                            <Button type={'primary'}>Testing</Button>
-                            <h1 style={{ color: "red" }}>Test 1</h1>
-                            <h1 style={{ color: "blue" }}>Test 1</h1>
-                            <img src="https://www.section.io/engineering-education/authors/sarthak-duggal/avatar_hue80417caa19405e90def6356d60f65e7_30777_180x0_resize_q75_box.jpg" alt="Image to Print" width={"200px"} height={"300px"} loading={'lazy'} />
-                        </div>
+                        <PrintBillLayout data={printData} />
                     </PrintComponent>
                 </div>
             );
@@ -340,11 +428,12 @@ const BakiBillForm = () => {
                     <Steps.Step key={6} title="Rate & Charges" status={(billData['rate'] > 0 && billData['extra'] >= 0 && billData['labour'] > 0) ? 'finish' : 'process'} />
                     <Steps.Step key={7} title="Extra Info" />
                     <Steps.Step key={8} title="Optional Info" />
+                    <Steps.Step key={9} title="Print Bill" disabled />
                 </Steps>
             </div>
             <div className="contentContainer hflex">
                 {content}
-                {current < 6 ? (<Button type={'primary'} onClick={() => { setCurrent(current + 1)}}>Next</Button>) : (<Button type={'primary'}>Submit</Button>)}
+                {current < 7 ? (<Button type={'primary'} onClick={() => { setCurrent(current + 1) }}>Next</Button>) : (<Button onClick={handleSubmit} type={'primary'}>Submit</Button>)}
             </div>
             {/* {JSON.stringify(billData)} */}
         </BakiBillFormContainer>
@@ -355,6 +444,7 @@ export default BakiBillForm;
 
 const BakiBillFormContainer = styled.div`
     width:100%;
+    height:100vh;
     // border:1px solid red;
     display:flex;
     flex-direction:column;
@@ -373,12 +463,13 @@ const BakiBillFormContainer = styled.div`
     }
     
     .contentContainer{
-        height:60vh;
+        min-height:100vh;
+        max-height:max-content;
         display: flex;
         justify-content: center;
         align-items: center;
         width:100%;
-        // border:1px solid pink;
+        border:1px solid pink;
         // margin: 0 auto;
         justify-content:space-evenly;
     }

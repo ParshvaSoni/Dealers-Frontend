@@ -40,7 +40,7 @@ export const Login = () => {
     return (
         <LoginContainer>
             <LoginFormContainer>
-                <h2 style={{ textAlign: "center" }}>Login To Your Accout !</h2>
+                <h2 style={{ textAlign: "center" }}>Login To Your Account !</h2>
                 <Form
                     form={form}
                     name="Login_Form"

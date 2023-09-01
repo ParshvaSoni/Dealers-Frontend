@@ -9,6 +9,7 @@ import { useCurrentTheme } from '../Context/ThemeContext';
 import { useAuth } from '../Context/AuthContext';
 import { Capitalize } from '../HelperFunction';
 import { useDealersData } from '../Context/DealersContext';
+import { config } from '../Constant'
 
 
 const Header = () => {
@@ -26,6 +27,8 @@ const Header = () => {
     try {
       // const respone = await axios.post('http://localhost:3000/users/logout', {}, { withCredentials: true })
       // console.log(respone.data)
+      const response = await axios.post(config.URLS.BACKEND_URL + 'account/logout', { withCredentials: true });
+      console.log(response.data)
       localStorage.setItem('dealersinfo', '');
       localStorage.setItem('userinfo', '');
       setUser({ userData: { username: '', mobile: '', id: ''} })
