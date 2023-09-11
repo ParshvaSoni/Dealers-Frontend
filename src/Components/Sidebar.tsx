@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { FaChevronRight, FaChevronLeft } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
@@ -43,7 +43,13 @@ const menu = [
         ]
     },
     { title: 'RolesPermission', submenu: [{ name: 'My Roles and Permissions', path: '/myroles' }] },
-    { title: 'Baki Bill', submenu: [{ name: 'Create Baki Bill', path: 'bakibill/create' }] }
+    {
+        title: 'Baki Bill', 
+        submenu:[
+            { name: 'Create Baki Bill', path: 'bakibill/create' },
+            { name: 'Baki Bill Listing', path: 'bakibill/listing' },
+        ]
+    }
 
 ]
 
@@ -55,23 +61,23 @@ const Sidebar = () => {
         SetBarVisible(!BarVisisble);
     }
 
-    useEffect(()=>{
-        if(val===''){
+    useEffect(() => {
+        if (val === '') {
             SetResult(menu);
             return;
         }
-        let finalResult = Result.map(({submenu,title})=>{
-            let tsub=submenu.filter((ti)=>ti.name.toLowerCase().includes(val.toLowerCase()));
-            return {submenu:tsub,title}
+        let finalResult = Result.map(({ submenu, title }) => {
+            let tsub = submenu.filter((ti) => ti.name.toLowerCase().includes(val.toLowerCase()));
+            return { submenu: tsub, title }
         })
         SetResult(finalResult);
     }
-    ,[val]);
+        , [val]);
 
     return (
         <SidebarContainer>
             <div className='Menu__Items__Container' style={{ display: `${BarVisisble ? 'flex' : 'none'}` }}>
-            <Input placeholder='Search..' value={val} allowClear onChange={(e)=>{Setval(e.target.value)}}/>
+                <Input placeholder='Search..' value={val} allowClear onChange={(e) => { Setval(e.target.value) }} />
                 {Result ?
                     (<Collapse expandIconPosition='end' bordered={false}>
                         {Result.map((item, index) => {

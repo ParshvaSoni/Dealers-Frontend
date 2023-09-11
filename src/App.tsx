@@ -10,6 +10,7 @@ import Home from './Pages/Home';
 import Settings from './Pages/Settings';
 import BakiBillLayout from './Pages/BakiBill/BakiBillLayout';
 import BakiBillForm from './Pages/BakiBill/CreateBakiBill';
+import BakiBillListing from './Pages/BakiBill/BakiBillListing';
 
 function App() {
   return (
@@ -66,7 +67,7 @@ function App() {
             <Route path='BakiBill' element={<BakiBillLayout />} >
               {/* <Route path='all' element={< />}/> */}
               <Route path='create' element={<BakiBillForm />} />
-              <Route path='update' element={<p>Update Occasions</p>} />
+              <Route path='listing' element={<BakiBillListing />} />
               <Route path='delete' element={<p>Delete Occasions</p>} />
             </Route>
           </Route>

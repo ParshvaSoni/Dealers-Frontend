@@ -1,3 +1,4 @@
+import { Button } from 'antd';
 import React from 'react';
 interface PrintButtonProps {
     targetElementId: string;
@@ -7,6 +8,8 @@ interface PrintButtonProps {
 interface PrintComponentProps {
     children?: React.ReactNode;
 }
+
+const sleep = (delay:number) => new Promise((resolve) => setTimeout(resolve, delay))
 
 const PrintButton: React.FC<PrintButtonProps> = ({ targetElementId, buttonText }) => {
     const handlePrint = () => {
@@ -18,25 +21,24 @@ const PrintButton: React.FC<PrintButtonProps> = ({ targetElementId, buttonText }
             printWindow?.document.write(targetElement.innerHTML);
             printWindow?.document.write('</body></html>');
             printWindow?.document.close();
+            sleep(1000);
             printWindow?.print();
         }
     };
 
     return (
-        <button onClick={handlePrint}>{buttonText}</button>
+        <Button type='primary' onClick={handlePrint}>{buttonText}</Button>
     );
 };
 
 const PrintComponent: React.FC<PrintComponentProps> = ({children}) => {
     return (
-        <div>
+        <div style={{height:'max-content'}}>
             {/* Your content to be printed */}
             <div id="contentToPrint">
-                <div>
                     {
                         children
                     }
-                </div>
             </div>
 
             {/* Print button */}

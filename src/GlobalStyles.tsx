@@ -36,7 +36,7 @@ const BodyGlobalStyle = css`
             color:${(prop) => prop.theme.font.fontColor} !important;
         }
         
-        .ant-collapse-content-box, .ant-pagination-item, .ant-picker-panel-container, .ant-tooltip-inner{
+        .ant-collapse-content-box, .ant-pagination-item, .ant-picker-panel-container, .ant-tooltip-inner, .ant-modal-content, .ant-modal-title{
             background-color:${(prop) => prop.theme.color.color2} !important;
         }
         .ant-table{
@@ -66,6 +66,11 @@ const BodyGlobalStyle = css`
         }
         .ant-form-item-explain-error{
             color:red !important;
+        }
+
+        .ant-modal-content{
+            height:max-content !important;
+            overflow:scroll !important;
         }
     }
 `;

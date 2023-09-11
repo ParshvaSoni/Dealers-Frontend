@@ -157,44 +157,47 @@ const PrintBillLayout: React.FC<PrintLayoutProps> = ({ data }) => {
                         </div>
                     </div>
                     <div style={{ height: 'max-content', padding: '0px 12px' }}>
-                        <table style={{borderCollapse: "collapse", width: "100%"}}>
+                        <table style={{ borderCollapse: "collapse", width: "100%" }}>
                             <tr>
-                                <th style={{border:'1px solid black', padding: "8px"}}>Product Name</th>
-                                <th style={{border:'1px solid black', padding: "8px"}}>Metal</th>
-                                <th style={{border:'1px solid black', padding: "8px"}}>Metal Purity</th>
-                                <th style={{border:'1px solid black', padding: "8px"}}>Product Weight</th>
-                                <th style={{border:'1px solid black', padding: "8px"}}>Rate</th>
-                                <th style={{border:'1px solid black', padding: "8px"}}>Labour</th>
-                                <th style={{border:'1px solid black', padding: "8px"}}>Extra</th>
-                                <th style={{border:'1px solid black', padding: "8px"}}>ProductPrice Inc. GST</th>
+                                <th style={{ border: '1px solid black', padding: "8px" }}>Product Name</th>
+                                <th style={{ border: '1px solid black', padding: "8px" }}>Metal</th>
+                                <th style={{ border: '1px solid black', padding: "8px" }}>Metal Purity</th>
+                                <th style={{ border: '1px solid black', padding: "8px" }}>Product Weight</th>
+                                <th style={{ border: '1px solid black', padding: "8px" }}>Rate</th>
+                                <th style={{ border: '1px solid black', padding: "8px" }}>Labour</th>
+                                <th style={{ border: '1px solid black', padding: "8px" }}>Extra</th>
+                                <th style={{ border: '1px solid black', padding: "8px" }}>ProductPrice Inc. GST</th>
                             </tr>
                             <tr>
-                                <td style={{border:'1px solid black', padding: "8px"}}>{titleCase(data?.productname || '')}</td>
-                                <td style={{border:'1px solid black', padding: "8px"}}>{titleCase(data?.metaltype || '')}</td>
-                                <td style={{border:'1px solid black', padding: "8px"}}>{data?.metalpurity}</td>
-                                <td style={{border:'1px solid black', padding: "8px"}}>{data?.metalweight}</td>
-                                <td style={{border:'1px solid black', padding: "8px"}}>{data?.rate}</td>
-                                <td style={{border:'1px solid black', padding: "8px"}}>{data?.labour}</td>
-                                <td style={{border:'1px solid black', padding: "8px"}}>{data?.extra}</td>
-                                <td style={{border:'1px solid black', padding: "8px"}}>{purchaseprice}</td>
+                                <td style={{ border: '1px solid black', padding: "8px" }}>{titleCase(data?.productname || '')}</td>
+                                <td style={{ border: '1px solid black', padding: "8px" }}>{titleCase(data?.metaltype || '')}</td>
+                                <td style={{ border: '1px solid black', padding: "8px" }}>{data?.metalpurity}</td>
+                                <td style={{ border: '1px solid black', padding: "8px" }}>{data?.metalweight}</td>
+                                <td style={{ border: '1px solid black', padding: "8px" }}>{data?.rate}</td>
+                                <td style={{ border: '1px solid black', padding: "8px" }}>{data?.labour}</td>
+                                <td style={{ border: '1px solid black', padding: "8px" }}>{data?.extra}</td>
+                                <td style={{ border: '1px solid black', padding: "8px" }}>{purchaseprice}</td>
                             </tr>
                         </table>
                         <p style={{ textAlign: 'center' }}>{titleCase(data?.message || 'Thanks For Trusting And Buying From Us.')}</p>
                     </div>
                     <div style={{ display: 'flex', flex: 1 }}>
                         {/* <div style={{ backgroundImage: `url('${`https://www.kalyanjewellers.net/images/Jewellery/Gold/images/kajjara-nimah-gold-jhumka.jpg`}')`, backgroundRepeat: 'no-repeat', backgroundPosition: 'center center', backgroundSize: 'contain', width: '100%', height: '300px',border:'1px solid red' }}></div> */}
-                        <div style={{ width: '50%', height: '300px' }}>
-                            <img src={sessionStorage.getItem('UserCaptureImage')|| ""} alt="Image to Print" width={"100%"} height={"100%"} loading={'lazy'} />s
-                        </div>
+                        {(sessionStorage.getItem('UserCaptureImage') != null || data?.imageurl != null) ?
+                            <div style={{ width: '50%', height: '300px' }}>
+                                <img src={data.imageurl || sessionStorage.getItem('UserCaptureImage') || ''} alt="Image to Print" width={"100%"} height={"100%"} loading={'lazy'} />s
+                            </div>
+                            :
+                            <></>}
                         <div style={{ height: '100%', width: '100%', padding: '12px' }}>
                             <h3 style={{ textAlign: 'center' }}>Transaction Details</h3>
-                            <table style={{borderCollapse:'collapse',width:"100%"}}>
+                            <table style={{ borderCollapse: 'collapse', width: "100%" }}>
                                 <tr>
-                                    <th style={{border:'1px solid black', padding: '8px'}}>Date</th>
-                                    <th style={{border:'1px solid black', padding: '8px'}}>Amount</th>
+                                    <th style={{ border: '1px solid black', padding: '8px' }}>Date</th>
+                                    <th style={{ border: '1px solid black', padding: '8px' }}>Amount</th>
                                 </tr>
                                 {data?.transaction.map((item) => {
-                                    return <tr><td style={{border:'1px solid black', padding: '8px'}}>{new Date(item.transactiondate).toString().split('GMT')[0]}</td><td style={{border:'1px solid black', padding: '8px'}}>{item.amount}</td></tr>
+                                    return <tr><td style={{ border: '1px solid black', padding: '8px' }}>{new Date(item.transactiondate).toString().split('GMT')[0]}</td><td style={{ border: '1px solid black', padding: '8px' }}>{item.amount}</td></tr>
                                 })}
                             </table>
                             <div style={{ display: 'flex', justifyContent: 'space-between', flex: '1' }}>
@@ -225,7 +228,7 @@ export default PrintBillLayout;
 
 const Bill_Container = styled.div`
     .container{
-
+        
         .truncate {
             white-space: nowrap;       /* Prevent text from wrapping */
             overflow: hidden;          /* Hide overflowing content */

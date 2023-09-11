@@ -8,26 +8,33 @@ import SpeechToTextInput from '../Components/SpeechToTextInput'
 import PrintBillLayout from '../Components/PrintBillLayout'
 import CameraCapture from '../Components/CameraCapture'
 import CreateBakiBill from '../Pages/BakiBill/CreateBakiBill'
+import BakibillUpdate from './BakiBill/BakibillUpdate'
 
 let Data = {
-    _id:"12345679123",
-    customername: "Yogesh Bhai",
-    customermobile: "9779647141",
-    productname: "Gold Ring",
-    metaltype: "gold",
-    metalpurity: "24KT",
-    metalweight: 5,
-    rate: 1000,
-    labour: 100,
-    extra: 500,
-    message: "Tesing che guys",
-    deliverdate: "2023-08-23T21:47:07.036Z",
-    imageurl: "https://stock.adobe.com/in/images/website-header-or-banner-design-with-hexagons-pattern-geometric-abstract-background-with-simple-hexagonal-elements-medical-technology-or-science-design/276080724",
-    huid: "123456",
-    transaction: [{
-        transactiondate:"2023-08-19T21:47:07.036Z",
-        amount:100
-    }]
+        "_id": "64e4fb639b177b3c37643d50",
+        "accountId": "64d7f1e9a1cc25fefbe60473",
+        "customername": "pasoni",
+        "productname": "gold ring",
+        "customermobile": "9408331244",
+        "metaltype": "gold",
+        "metalweight": 5,
+        "metalpurity": "22KT",
+        "rate": 5,
+        "labour": 500,
+        "extra": 500,
+        "message": "",
+        "deliverdate": "2023-08-21T18:15:52.815Z",
+        "transaction": [
+            {
+                "transactiondate": "2023-08-22T18:15:56.904Z",
+                "amount": 200,
+                "_id": "64e4fb639b177b3c37643d51"
+            }
+        ],
+        "createdAt": "2023-08-22T18:16:03.035Z",
+        "updatedAt": "2023-08-22T18:16:03.035Z",
+        "__v": 0,
+        "imageurl": "https://www.tanishq.co.in/dw/image/v2/BKCK_PRD/on/demandware.static/-/Sites-Tanishq-product-catalog/default/dwb2b28f69/images/hi-res/512018FKDAB00_1.jpg"
 }
 
 const Test = () => {
@@ -37,7 +44,7 @@ const Test = () => {
             {/* <Space direction='vertical'> */}
                 {/* <PrintBillLayout data={Data} /> */}
                 {/* <CameraCapture /> */}
-                <CreateBakiBill />
+                <BakibillUpdate data={Data}/>
                 {/* <SpeechToTextInput />
                 <div style={{display:'flex'}}>
                     <span className='Wbox1' style={{padding:"20px"}}>Box 1</span>
