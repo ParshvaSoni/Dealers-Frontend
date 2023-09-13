@@ -1,6 +1,6 @@
 const prod={
     URLS:{
-        BACKEND_URL:""
+        BACKEND_URL:"https://ill-gray-quail-hat.cyclic.app/"
     }
 }
 
