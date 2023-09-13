@@ -118,7 +118,7 @@ const PrintBillLayout: React.FC<PrintLayoutProps> = ({ data }) => {
         <Bill_Container>
             <div className='container'>
                 <header className="header">
-                    <img src='https://static.vecteezy.com/system/resources/thumbnails/002/082/615/small/header-with-black-and-blue-overlapped-arrows-abstract-modern-banner-with-place-for-your-text-material-design-abstract-widescreen-background-vector.jpg' alt="Image to Print" width={"100%"} height={"150px"} loading={'lazy'} />
+                    ({dealer.DealersData?.headerPhotoUrl===''}?(<img src={`${dealer.DealersData?.headerPhotoUrl}`} alt="Image to Print" width={"100%"} height={"150px"} loading={'lazy'} />):(<></>))
                 </header>
 
                 <main className='content'>
@@ -216,9 +216,9 @@ const PrintBillLayout: React.FC<PrintLayoutProps> = ({ data }) => {
                     </div>
                 </main>
 
-                {/* <footer className="footer">
-                    <img src='https://static.vecteezy.com/system/resources/thumbnails/002/082/615/small/header-with-black-and-blue-overlapped-arrows-abstract-modern-banner-with-place-for-your-text-material-design-abstract-widescreen-background-vector.jpg' alt="Image to Print" width={"100%"} height={"150px"} loading={'lazy'} />
-                </footer> */}
+                <footer className="footer">
+                    ({dealer.DealersData?.footerPhotoUrl===''?(<img src='https://static.vecteezy.com/system/resources/thumbnails/002/082/615/small/header-with-black-and-blue-overlapped-arrows-abstract-modern-banner-with-place-for-your-text-material-design-abstract-widescreen-background-vector.jpg' alt="Image to Print" width={"100%"} height={"150px"} loading={'lazy'} />):(<></>)})
+                </footer>
             </div>
         </Bill_Container>
     )
