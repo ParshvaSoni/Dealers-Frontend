@@ -9,6 +9,7 @@ import PrintBillLayout from '../Components/PrintBillLayout'
 import CameraCapture from '../Components/CameraCapture'
 import CreateBakiBill from '../Pages/BakiBill/CreateBakiBill'
 import BakibillUpdate from './BakiBill/BakibillUpdate'
+import AccountUpdate from './Accounts/AccountUpdate'
 
 let Data = {
         "_id": "64e4fb639b177b3c37643d50",
@@ -44,7 +45,8 @@ const Test = () => {
             {/* <Space direction='vertical'> */}
                 {/* <PrintBillLayout data={Data} /> */}
                 {/* <CameraCapture /> */}
-                <BakibillUpdate data={Data}/>
+                {/* <BakibillUpdate data={Data}/> */}
+                <AccountUpdate />
                 {/* <SpeechToTextInput />
                 <div style={{display:'flex'}}>
                     <span className='Wbox1' style={{padding:"20px"}}>Box 1</span>

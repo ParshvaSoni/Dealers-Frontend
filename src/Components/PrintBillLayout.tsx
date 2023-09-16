@@ -117,12 +117,12 @@ const PrintBillLayout: React.FC<PrintLayoutProps> = ({ data }) => {
     return (
         <Bill_Container>
             <div className='container'>
-                <header className="header">
-                    ({dealer.DealersData?.headerPhotoUrl===''}?(<img src={`${dealer.DealersData?.headerPhotoUrl}`} alt="Image to Print" width={"100%"} height={"150px"} loading={'lazy'} />):(<></>))
+                <header className="header" style={{border:'1px solid red'}}>
+                    {dealer.DealersData?.headerPhotoUrl ? <img src={`${dealer.DealersData?.headerPhotoUrl}`} alt="Image to Print" width={"100%"} height={"150px"} loading={'lazy'} /> : <></>}
                 </header>
 
                 <main className='content'>
-                    <div style={{ display: 'flex', borderBottom: '1px solid black', justifyContent: 'space-between', padding: '0px 12px', paddingTop: '12px' }}>
+                    <div style={{ display: 'flex', borderBottom: '1px solid black', justifyContent: 'space-between', padding: '0px 12px', paddingTop: '5px' }}>
                         <div style={{ width: '20%', }}>
                             <h2>Invoice</h2>
                         </div>
@@ -217,7 +217,7 @@ const PrintBillLayout: React.FC<PrintLayoutProps> = ({ data }) => {
                 </main>
 
                 <footer className="footer">
-                    ({dealer.DealersData?.footerPhotoUrl===''?(<img src='https://static.vecteezy.com/system/resources/thumbnails/002/082/615/small/header-with-black-and-blue-overlapped-arrows-abstract-modern-banner-with-place-for-your-text-material-design-abstract-widescreen-background-vector.jpg' alt="Image to Print" width={"100%"} height={"150px"} loading={'lazy'} />):(<></>)})
+                    {dealer.DealersData?.footerPhotoUrl ? <img src={`${dealer.DealersData.footerPhotoUrl}`} alt="Image to Print" width={"100%"} height={"80px"} loading={'lazy'} /> : <></>}
                 </footer>
             </div>
         </Bill_Container>
