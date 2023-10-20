@@ -1,13 +1,41 @@
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Space } from 'antd';
 import React from 'react';
 import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import styled from 'styled-components';
+import FileUpload from '../../Components/FileUpload';
+import axios from 'axios';
+import { config } from '../../Constant';
+import { useDealersData } from '../../Context/DealersContext';
+import { OpenNotification } from '../../HelperFunction';
+
+type DealersProps = {
+    DealersData?: {
+        address?: {
+            addressLine?: string,
+            city?: string,
+            pincode?: string,
+            state?: string,
+        }
+        footerPhotoUrl?: string,
+        gstnumber?: string,
+        headerPhotoUrl?: string,
+        profilePicUrl?: string,
+        shopname?: string,
+        tagline?: string
+    }
+}
 
 const AccountDetailsForm = () => {
     const [form] = Form.useForm();
-    const handleSubmit = (val: { username: string }) => {
-        console.log(val);
+    const handleSubmit = async (val: { username: string, email: string, mobile: string }) => {
+        try {
+            let response = await axios.patch(config.URLS.BACKEND_URL + 'account/update', val, { withCredentials: true });
+            console.log(response);
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
     return (
         <div className='Account__Details__Form'>
@@ -78,8 +106,17 @@ const AccountDetailsForm = () => {
 
 const AccountMetaDataForm = () => {
     const [form] = Form.useForm();
-    const handleSubmit = (val: { username: string }) => {
-        console.log(val);
+    const { dealer, setDealer } = useDealersData();
+    const handleSubmit = async (val: { shopname: string, tagline: string, gstnumber: string, address: { addressLine: string, city: string, state: string, pincode: string } }) => {
+        try {
+            let response = await axios.patch(config.URLS.BACKEND_URL + 'accountmetadata/update', val, { withCredentials: true });
+            console.log(response);
+            setDealer(response.data.data);
+            OpenNotification({ type: 'success', title: 'Account Metadata Update', description: response.data.message })
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
     return (
         <div className='Account__Details__Form'>
@@ -100,10 +137,12 @@ const AccountMetaDataForm = () => {
                             },
                             {
                                 max: 50
-                            }
+                            }, {
+                                type: 'string'
+                            },
                         ]}
                     >
-                        <Input placeholder='Enter shopname' name='shopname' />
+                        <Input placeholder='Enter shopname' defaultValue={dealer.DealersData?.shopname} />
                     </Form.Item>
                     <Form.Item
                         label={'Tagline'}
@@ -114,10 +153,13 @@ const AccountMetaDataForm = () => {
                             },
                             {
                                 max: 100
+                            },
+                            {
+                                type: 'string'
                             }
                         ]}
                     >
-                        <Input placeholder='Enter Tagline' name='tagline' />
+                        <Input placeholder='Enter Tagline' defaultValue={dealer.DealersData?.tagline} />
                     </Form.Item>
                 </div>
                 <div className='hflex'>
@@ -130,9 +172,105 @@ const AccountMetaDataForm = () => {
                             }
                         ]}
                     >
-                        <Input name='gstnumber' placeholder='Enter GST No.' />
+                        <Input placeholder='Enter GST No.' defaultValue={dealer.DealersData?.gstnumber} />
                     </Form.Item>
                 </div>
+                <div className='hflex'>
+                    <Form.Item
+                        label={'AddressLine'}
+                        name={['address', 'addressLine']}
+                        rules={[
+                            {
+                                required: true
+                            },
+                            {
+                                min: 5
+                            },
+                            {
+                                max: 45
+                            },
+                            {
+                                type: 'string'
+                            }
+                        ]}
+                    >
+                        <Input placeholder='Enter Addressline' defaultValue={dealer.DealersData?.address?.addressLine} />
+                    </Form.Item>
+                </div>
+                <div className='hflex'>
+                    <Form.Item
+                        label='City'
+                        name={['address', 'city']}
+                        rules={[{
+                            required: true
+                        },
+                        {
+                            min: 3
+                        },
+                        {
+                            max: 30
+                        },
+                        {
+                            type: 'string'
+                        }
+                        ]}
+                    >
+                        <Input placeholder='Enter city' defaultValue={dealer.DealersData?.address?.city} />
+                    </Form.Item>
+                    <Form.Item
+                        label='State'
+                        name={['address', 'state']}
+                        rules={[{
+                            required: true
+                        },
+                        {
+                            min: 3
+                        },
+                        {
+                            max: 25
+                        },
+                        {
+                            type: 'string'
+                        }
+                        ]}
+                    >
+                        <Input placeholder='Enter state' defaultValue={dealer.DealersData?.address?.state} />
+                    </Form.Item>
+                    <Form.Item
+                        label='Pincode'
+                        name={['address', 'pincode']}
+                        rules={[{
+                            required: true
+                        },
+                        {
+                            len: 6
+                        },
+                        {
+                            type: 'string'
+                        }
+                        ]}
+                    >
+                        <Input placeholder='Enter pincode' defaultValue={dealer.DealersData?.address?.pincode} />
+                    </Form.Item>
+                </div>
+                <div className='hflex'>
+                    <Form.Item
+                        label="Profile Picture"
+                    >
+                        <FileUpload fileCount={1} imageUrlArray={[dealer.DealersData?.profilePicUrl || '']} />
+                    </Form.Item>
+                    <Form.Item
+                        label="Header Picture"
+                    >
+                        <FileUpload fileCount={1} imageUrlArray={[dealer.DealersData?.headerPhotoUrl || '']} />
+                    </Form.Item>
+                    <Form.Item
+                        label="Footer Picture"
+                    >
+                        <FileUpload fileCount={1} imageUrlArray={[dealer.DealersData?.footerPhotoUrl || '']} />
+                    </Form.Item>
+                </div>
+
 
                 <div style={{ textAlign: 'center' }}>
                     <Button type={'primary'} onClick={() => form.submit()}>Update</Button>
@@ -160,11 +298,9 @@ const onChange = (key: string) => {
 };
 
 const AccountUpdate = () => {
+    document.title = "Account Update"
     return (
         <Account__Update__Container>
-            <h2 style={{ textAlign: 'center' }}>
-                Account Update
-            </h2>
             <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
         </Account__Update__Container>
     )

@@ -7,47 +7,16 @@ const { Panel } = Collapse;
 
 const menu = [
     {
-        title: 'Offers',
-        submenu: [
-            { name: 'All Offers', path: 'offer/all' },
-            { name: 'Create Offer', path: 'offer/create' },
-            { name: 'Update Offer', path: 'offer/update' },
-            { name: 'Delete Offer', path: 'offer/delete' }
-        ]
-    },
-    {
-        title: 'Products',
-        submenu: [
-            { name: 'All Products', path: 'product/all' },
-            { name: 'Create Product', path: 'product/create' },
-            { name: 'Update Product', path: 'product/update' },
-            { name: 'Delete Product', path: 'product/delete' }
-        ]
-    },
-    {
-        title: 'Categories',
-        submenu: [
-            { name: 'All Categories', path: 'category/all' },
-        ]
-    },
-    {
-        title: 'Occasions',
-        submenu: [
-            { name: 'All Occasions', path: 'occasion/all' },
-        ]
-    },
-    {
-        title: 'Class',
-        submenu: [
-            { name: 'All Class', path: 'class/all' },
-        ]
-    },
-    { title: 'RolesPermission', submenu: [{ name: 'My Roles and Permissions', path: '/myroles' }] },
-    {
         title: 'Baki Bill', 
         submenu:[
             { name: 'Create Baki Bill', path: 'bakibill/create' },
             { name: 'Baki Bill Listing', path: 'bakibill/listing' },
+        ]
+    },
+    {
+        title: 'Account Details', 
+        submenu:[
+            { name: 'Account Details Update', path: 'account/update' },
         ]
     }
 

@@ -5,6 +5,7 @@ import type { RcFile, UploadProps } from 'antd/es/upload';
 import styled from 'styled-components';
 import { FaUpload } from 'react-icons/fa'
 import axios from 'axios';
+import { deleteFileFromBucket, uploadFileToBucket } from '../HelperFunction';
 
 type Props = {
     imageUrlArray?: string[],
@@ -30,7 +31,11 @@ const createUploadUrl = (urls: string[]) => {
 const FileUpload = (props: Props) => {
     const [fileList, setFileList] = useState<UploadFile[]>([...createUploadUrl(props.imageUrlArray || [])]);
     const [uploadLoading, setUploadLoading] = useState(false);
-    const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => setFileList(newFileList);
+    const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
+        setFileList(newFileList);
+        console.log(fileList,newFileList);
+       
+    };
     const beforeUpload = (file: UploadFile) => {
         console.log("inbside", file)
         setFileList([...fileList, file]);
@@ -39,12 +44,16 @@ const FileUpload = (props: Props) => {
     const uploadFiles = async() => {
         const formData = new FormData();
         fileList.forEach((file)=>{
+            console.log(file);
             formData.append('file[]',file as RcFile)
         });
+        console.log(fileList);
         setUploadLoading(true);
         try{
             // const response = await axios.post('https://api.upload.io/v2/accounts/FW25axi/uploads/binary',formData,{headers:{"Authorization": "Bearer public_FW25axiAFa4euLhTEpqVY6Y8Gfcm","Content-Type":"image/jpeg"}});
             // console.log('success',response);
+            console.log(fileList[0]);
+            await uploadFileToBucket(fileList[0]);
         }
         catch(err)
         {
@@ -59,8 +68,7 @@ const FileUpload = (props: Props) => {
     const deleteFiles = async()=>{
         setUploadLoading(true);
         try{
-            const response = await axios.delete('https://api.imgur.com/3/image',{headers:{"Authorization": "Bearer public_FW25axiAFa4euLhTEpqVY6Y8Gfcm","content-type":"image/jpeg"}});
-            console.log('success',response);
+           await deleteFileFromBucket(fileList[0]);
         }
         catch(err)
         {

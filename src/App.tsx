@@ -11,6 +11,8 @@ import Settings from './Pages/Settings';
 import BakiBillLayout from './Pages/BakiBill/BakiBillLayout';
 import BakiBillForm from './Pages/BakiBill/CreateBakiBill';
 import BakiBillListing from './Pages/BakiBill/BakiBillListing';
+import AccountLayout from './Pages/Accounts/AccountLayout';
+import AccountUpdate from './Pages/Accounts/AccountUpdate';
 
 function App() {
   return (
@@ -64,11 +66,15 @@ function App() {
             </Route> 
             
             */}
+            <Route path='Account' element={<AccountLayout />} >
+              <Route path='update' element={<AccountUpdate />} />
+            </Route>
+
             <Route path='BakiBill' element={<BakiBillLayout />} >
               {/* <Route path='all' element={< />}/> */}
               <Route path='create' element={<BakiBillForm />} />
               <Route path='listing' element={<BakiBillListing />} />
-              <Route path='delete' element={<p>Delete Occasions</p>} />
+              <Route path='delete' element={<p>Delete Bill</p>} />
             </Route>
           </Route>
         </Route>

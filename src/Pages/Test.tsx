@@ -1,14 +1,7 @@
 import React,{useEffect} from 'react'
 import { Input, Select, Button, Switch, Progress, Space,Checkbox, Slider } from 'antd'
 import styled from 'styled-components'
-import { useCurrentTheme } from '../Context/ThemeContext'
-import { OpenNotification } from '../HelperFunction'
-import SpeechToTextInput from '../Components/SpeechToTextInput'
-// import  PrintBillLayout  from '../Components/PrintBillLayout'
-import PrintBillLayout from '../Components/PrintBillLayout'
-import CameraCapture from '../Components/CameraCapture'
-import CreateBakiBill from '../Pages/BakiBill/CreateBakiBill'
-import BakibillUpdate from './BakiBill/BakibillUpdate'
+
 import AccountUpdate from './Accounts/AccountUpdate'
 
 let Data = {
